@@ -35,12 +35,10 @@ public class TodosService {
     public Todos updateTodo(long id, Todos todos) {
         Todos findTodos = findVerifiedTodos(id);
 
-        Optional.ofNullable(todos.getTodoOrder())
-                .ifPresent(findTodos::updateTodoOrder);
+        if(todos.getTodoOrder() != 0) findTodos.updateTodoOrder(todos.getTodoOrder());
         Optional.ofNullable(todos.getTitle())
                 .ifPresent(findTodos::updateTitle);
-        Optional.ofNullable(todos.isCompleted())
-                .ifPresent(findTodos::updateCompleted);
+        findTodos.updateCompleted(todos.isCompleted());
 
         return todosRepository.save(findTodos);
     }
