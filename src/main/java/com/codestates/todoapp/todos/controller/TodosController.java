@@ -15,13 +15,13 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/v1/api/todos")
 public class TodosController {
-    private final static String TODOS_DEFAULT_URL = "/v1/api/todos";
 
     private final TodosService todosService;
     private final TodosMapper todosMapper;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity readTodos(){
         List<Todos> todosList = todosService.readTodos();
         List<TodosDto.Response> responseList = todosMapper.todoListToTodoResponseDtoList(todosList);
@@ -35,7 +35,7 @@ public class TodosController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity createTodo(@RequestBody TodosDto.Request request){
         Todos todos = todosMapper.todosRequestDtoToTodos(request);
         TodosDto.Response createTodos = todosMapper.todosToTodosResponseDto(todosService.createTodo(todos));
@@ -50,7 +50,7 @@ public class TodosController {
         return new ResponseEntity(todosMapper.todosToTodosResponseDto(updateTodos), HttpStatus.OK);
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping
     public ResponseEntity deleteTodos(){
         todosService.deleteTodos();
         return ResponseEntity.noContent().build();
