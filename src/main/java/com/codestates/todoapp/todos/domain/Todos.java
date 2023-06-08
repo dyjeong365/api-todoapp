@@ -18,7 +18,7 @@ public class Todos {
     long id;
     @Column(nullable = false)
     String title;
-    @Column
+    @Column(nullable = false)
     int todoOrder;
     @Column(columnDefinition = "boolean default false", nullable = false)
     boolean completed;
