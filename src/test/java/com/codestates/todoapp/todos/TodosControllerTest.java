@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TodosControllerTest {
+class TodosControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -44,9 +44,11 @@ public class TodosControllerTest {
     @MockBean
     private TodosMapper mapper;
 
+    private final static String TODOS_DEFAULT_URL = "/v1/api/todos";
+
     @Test
     @DisplayName("Todos를 추가한다(Post)")
-    public void postTodos() throws Exception {
+    void postTodos() throws Exception {
         //given
         TodosDto.Request request = TodosDto.Request.builder()
                 .todoOrder(1)
@@ -77,7 +79,7 @@ public class TodosControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                                post("/")
+                                post(TODOS_DEFAULT_URL+"/")
                                         .accept(MediaType.APPLICATION_JSON)
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .content(content)
@@ -123,7 +125,7 @@ public class TodosControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                                get("/")
+                                get(TODOS_DEFAULT_URL+"/")
                                         .accept(MediaType.APPLICATION_JSON)
                         )
                         //then
@@ -156,7 +158,7 @@ public class TodosControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                                get("/1")
+                                get(TODOS_DEFAULT_URL+"/1")
                                         .accept(MediaType.APPLICATION_JSON)
                         )
                         //then
@@ -195,7 +197,7 @@ public class TodosControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                                patch("/1")
+                                patch(TODOS_DEFAULT_URL+"/1")
                                         .accept(MediaType.APPLICATION_JSON)
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .content(content)
@@ -213,7 +215,7 @@ public class TodosControllerTest {
         //given
         doNothing().when(service).deleteTodo(Mockito.anyLong());
         //when
-        mockMvc.perform(delete("/1"))
+        mockMvc.perform(delete(TODOS_DEFAULT_URL+"/1"))
                 .andExpect(status().isNoContent());
     }
 
