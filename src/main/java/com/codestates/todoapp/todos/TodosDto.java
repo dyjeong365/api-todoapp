@@ -5,10 +5,13 @@ import lombok.Builder;
 import lombok.Getter;
 
 public class TodosDto {
+    private TodosDto() {
+    }
+
     @Builder
     @AllArgsConstructor
     @Getter
-    public static class Request{
+    public static class Request {
         String title;
         int todoOrder;
         boolean completed;
@@ -17,7 +20,7 @@ public class TodosDto {
     @Builder
     @AllArgsConstructor
     @Getter
-    public static class Response{
+    public static class Response {
         long id;
         String title;
         int todoOrder;
