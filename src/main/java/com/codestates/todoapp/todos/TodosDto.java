@@ -1,12 +1,9 @@
 package com.codestates.todoapp.todos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TodosDto {
-    private TodosDto() {
-    }
 
     @Builder
     @AllArgsConstructor
